@@ -1234,14 +1234,23 @@ class IndexController extends Controller {
 
   public async function genRenderMainNav(): Awaitable<:xhp> {
     if (SessionUtils::sessionActive()) {
-      $right_nav =
-        <ul class="nav-right">
+      $nav =
+        <ul style="padding-top: 10px; padding-bottom: 10px; border-top: 1px solid #21b4ba; border-bottom: 1px solid #21b4ba;">
+          <li>
+            <a href="/index.php?page=countdown" data-active="countdown">
+              {tr('Play CTF')}
+            </a>
+          </li>
+          <li>
+            <a href="/index.php?page=rules" data-active="rules">
+              {tr('Rules')}
+            </a>
+          </li>
           <li>
             <a href="/index.php?p=logout" data-active="logout">
               {tr('Logout')}
             </a>
           </li>
-          <li></li>
           <li>
             <a href="/index.php?p=game" data-active="gameboard">
               {tr('Gameboard')}
@@ -1249,8 +1258,18 @@ class IndexController extends Controller {
           </li>
         </ul>;
     } else {
-      $right_nav =
-        <ul class="nav-right">
+      $nav =
+        <ul style="padding-top: 10px; padding-bottom: 10px; border-top: 1px solid #21b4ba; border-bottom: 1px solid #21b4ba;">
+          <li>
+            <a href="/index.php?page=countdown" data-active="countdown">
+              {tr('Play CTF')}
+            </a>
+          </li>
+          <li>
+            <a href="/index.php?page=rules" data-active="rules">
+              {tr('Rules')}
+            </a>
+          </li>
           <li>
             <a
               href="/index.php?page=registration"
@@ -1258,7 +1277,6 @@ class IndexController extends Controller {
               {tr('Registration')}
             </a>
           </li>
-          <li></li>
           <li>
             <a href="/index.php?page=login" data-active="login">
               {tr('Login')}
@@ -1266,25 +1284,11 @@ class IndexController extends Controller {
           </li>
         </ul>;
     }
-    $left_nav =
-      <ul class="nav-left">
-        <li>
-          <a href="/index.php?page=countdown" data-active="countdown">
-            {tr('Play CTF')}
-          </a>
-        </li>
-        <li></li>
-        <li>
-          <a href="/index.php?page=rules" data-active="rules">
-            {tr('Rules')}
-          </a>
-        </li>
-      </ul>;
     $branding_gen = await $this->genRenderBranding();
     $branding =
-      <div class="branding">
+      <div class="branding" style="text-align: left;">
         <a href="/">
-          <div class="branding-rules">
+          <div class="branding-rules" style="border: 0px;">
             {$branding_gen}
           </div>
         </a>
@@ -1292,9 +1296,8 @@ class IndexController extends Controller {
 
     return
       <nav class="fb-main-nav fb-navigation">
-        {$left_nav}
         {$branding}
-        {$right_nav}
+        {$nav}
       </nav>;
   }
 
